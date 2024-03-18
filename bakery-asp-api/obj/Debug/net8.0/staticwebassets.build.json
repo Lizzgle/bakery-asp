@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "RZIX/iWBUf5x/zU5bw7kHua2BGSNt24TyWLz/2Gtevs=",
+  "Source": "bakery-asp-api",
+  "BasePath": "_content/bakery-asp-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "bakery-asp-api\\wwwroot",
+      "Source": "bakery-asp-api",
+      "ContentRoot": "C:\\pet-projects\\bakery-asp\\bakery-asp-api\\wwwroot\\",
+      "BasePath": "_content/bakery-asp-api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
