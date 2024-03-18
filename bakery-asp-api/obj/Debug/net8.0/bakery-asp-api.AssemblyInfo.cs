@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("bakery-asp-api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2fe62f4e764b1411c316b9d01f0a4278f7aeff9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d35f9acd7db80caa93deeb6221935a1bdd196ee")]
 [assembly: System.Reflection.AssemblyProductAttribute("bakery-asp-api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("bakery-asp-api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
