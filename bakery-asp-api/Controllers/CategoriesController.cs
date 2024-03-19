@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bakery_asp_api.Data;
 using bakery_asp_domain.Entities;
+using bakery_asp_api.Services.Implementations;
+using bakery_asp_api.Services.Interfaces;
 
 namespace bakery_asp_api.Controllers
 {
@@ -14,32 +16,25 @@ namespace bakery_asp_api.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(AppDbContext context)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         // GET: api/Categories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return await _context.Categories.ToListAsync();
+            return Ok(await _categoryService.GetCategoryListAsync());
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category>> GetCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return category;
+            return Ok(await _categoryService.GetCategoryByIdAsync(id));
         }
 
         // PUT: api/Categories/5
@@ -51,24 +46,7 @@ namespace bakery_asp_api.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(category).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _categoryService.UpdateCategoryAsync(id, category);
 
             return NoContent();
         }
@@ -78,31 +56,29 @@ namespace bakery_asp_api.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            if (_categoryService is null)
+            {
+                return BadRequest();
+            }
+            return Ok(await _categoryService.CreateCategoryAsync(category));
         }
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            await _categoryService.DeleteCategoryAsync(id);
 
             return NoContent();
         }
 
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.Id == id);
-        }
+        //private async bool CategoryExists(int id)
+        //{
+        //    await _categoryService.GetCategoryByIdAsync(id);
+
+        //    if (await _categoryService.GetCategoryByIdAsync(id) == null) category
+
+        //    return 
+        //}
     }
 }

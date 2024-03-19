@@ -1,4 +1,6 @@
 using bakery_asp_api.Data;
+using bakery_asp_api.Services.Implementations;
+using bakery_asp_api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string connectingString = builder.Configuration.GetConnectionString("Default");
+string? connectingString = builder.Configuration.GetConnectionString("Default");
 
-builder.Services.AddDbContext<AppDbContext>(
-                                    options => options.UseNpgsql(connectingString));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectingString));
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 var app = builder.Build();
