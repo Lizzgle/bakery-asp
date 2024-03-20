@@ -7,4 +7,8 @@
     <RootNamespace>bakery_asp</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\bakery-asp-domain\bakery-asp-domain.csproj" />
+  </ItemGroup>
+
 </Project>
